@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block content  %}
+    <p>
+        Discuss about <h1>{{ title }} </h1>
+        <hr>
+        {% if not comments %}
+            <h1>There's no comments, be first!</h1>
+        {% else %}
+        
+            {% for comment in comments %}
+                <p>
+                    <a href='{{ url_for("user.profile", username=comment.owner.username) }}'>
+                        {{ comment.owner.username }}
+                    </a> says: <br>
+                    {{ comment.text }}
+                </p>
+            {% endfor %}
+        {% endif %}
+    </p>
+    <hr>
+    {% if current_user.is_authenticated %}
+        <p>
+            <form action='' method='POST'>
+                {{ form.hidden_tag() }}
+                {{ form.text.label }} <br>
+                {{ form.text() }} <br>
+                {{ form.submit() }}
+            </form>
+        </p>
+    {% endif %}
+{% endblock content  %}

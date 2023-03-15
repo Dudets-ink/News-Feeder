@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon/favicon-16x16.png">
+        <title>
+            {% if title %}
+                {{ title }}
+            {% else %}
+                NewNews
+            {% endif %}
+        </title>
+        <meta name="description" content="Description Goes Here">
+        <link rel='stylesheet' href="/static/styles/main.css"/>
+    </head>
+    <body>
+        <div class='navbar'>
+            <navbar>
+                <a href='{{ url_for("main.index") }}' class='link'>NewNews</a>:
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('user.profile', username=current_user.username) }}" class='link button'>Profile</a> 
+                    <a href="{{ url_for('user.logout') }}" class='link button'>Logout</a>
+                {% else %}
+                    <a href="{{ url_for('user.login') }}" class='link button'>Login</a>
+                    <a href="{{ url_for('user.register') }}" class='link button'>Registration</a>
+                {% endif %}
+            </navbar>
+        </div>
+        <main>
+            {% for message in get_flashed_messages() %}
+                <span> {{ message }} </span>
+            {% endfor %}
+            {% block content %}
+            {% endblock content %}
+        </main>
+    </body>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/static/js/scripts.js">
+            {% block scripts %}
+            {% endblock scripts%}
+        </script>
+
+</html>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action='' method='POST'>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username_email.label }}<br>
+            {{ form.username_email() }}
+            {% for error in form.username_email.errors %}
+                {{ error }}
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password() }}
+            {% for error in form.password.errors %}
+                {{ error }}
+            {% endfor %}
+        <p>
+            Forgot your password? 
+            <a href="{{ url_for('user.reset_password_request') }}">
+                Click to reset
+            </a>
+        </p>
+        {{ form.submit() }}
+    </form>
+{% endblock content %}

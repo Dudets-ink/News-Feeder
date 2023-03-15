@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class='welcome'>
+        Welcome to NewNews!
+    </h1>
+
+    <div class='articles'>
+        <p id='categories'> Categories: </p>
+            {% for category in categories %}
+                <a class='article link' href='{{ url_for("main.category", category=category) }}'> {{ category }}</a>
+                <br>
+            {% endfor %}
+    </div>
+{% endblock content %}

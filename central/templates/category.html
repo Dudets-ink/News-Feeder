@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+    <h1 class='welcome'>Welcome to {{ title }} category!</h1>
+    <div class='articles'>
+        {% for article in articles[min_posts:max_posts] %}
+            <img src="{{ article['urlToImage'] }}" style='width:128px'>
+
+            {% if article['author'] %}
+                {{ article['author'|safe] }} <br>
+            {% endif %}
+
+            {{ article['title'|safe]}} <br> 
+            
+            {% if '<ul>' in article['description'] and not '</ul>' in article['description']  %}
+               {% with desc = article['description'] + '</ul>' %}
+                    {{ desc|safe }} <br> 
+               {% endwith %}
+            {% else %}
+                {{ article['description']|safe}}
+            {% endif %}
+
+            <a href='{{ article["url"] }}' class='article link'>Read more</a> | 
+            <a class='link button' href='{{ url_for("main.comments", category=title, article=article["title"]) }}'>
+                Comment
+            </a>
+            <hr>
+        {% endfor %}
+
+        {% if prev_url %}
+            <a  href="{{ prev_url }}">
+                Newer
+            </a> |
+        {% endif %}
+
+        {% if next_url%}
+            <a href="{{ next_url }}">
+                Older
+            </a>
+        {% endif %}
+    </p>
+{% endblock content %}
