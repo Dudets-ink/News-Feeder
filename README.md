@@ -5,5 +5,5 @@ The site also features its own comment section for each article. To leave a comm
 Also users have their own reputation based on their judgement of other users. 
 
 ## Technologies
-Database: SQLAlchemy
-Framework: Flask
+- Database: SQLAlchemy
+- Framework: Flask
